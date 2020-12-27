@@ -1,0 +1,92 @@
+\mode<presentation>
+
+%-------- THEME --------
+% Global elements like colors, fonts, and background
+
+% Turn off navigation buttons
+\beamertemplatenavigationsymbolsempty
+
+% Colors
+\definecolor{grey1}{RGB}{80, 80, 80}
+\definecolor{grey2}{RGB}{120, 120, 120}
+\definecolor{grey3}{RGB}{160, 160, 160}
+\definecolor{grey4}{RGB}{200, 200, 200}
+\definecolor{grey5}{RGB}{240, 240, 240}
+\definecolor{green1}{RGB}{0, 50, 50}
+\definecolor{green2}{RGB}{20, 90, 75}
+\definecolor{green3}{RGB}{50, 130, 100}
+\definecolor{green4}{RGB}{75, 170, 125}
+\definecolor{green5}{RGB}{100, 210, 150}
+\definecolor{yellow1}{RGB}{200, 170, 0}
+\definecolor{yellow2}{RGB}{255, 200, 0}
+\definecolor{yellow3}{RGB}{255, 255, 0}
+\definecolor{purple}{RGB}{192, 32, 208}
+\definecolor{salmon}{RGB}{255, 176, 176}
+
+% Background
+\setbeamercolor*{background canvas}{bg=white}
+
+% Titlepage
+\setbeamerfont{title}{size=\Huge}
+\setbeamercolor*{title}{fg=green1}
+\setbeamerfont{subtitle}{size=\large}
+
+% Page Titles and subtitles
+\setbeamercolor{frametitle-bar1}{fg=green2}
+\setbeamercolor{frametitle-bar2}{fg=green3}
+\setbeamercolor{frametitle}{fg=green1}
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{framesubtitle}{size=\small}
+
+% Lists
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor*{itemize item}{fg=green2}
+\setbeamercolor*{itemize subitem}{fg=green2}
+\setbeamercolor*{normal text}{fg=grey1}
+
+% Footer
+\setbeamercolor*{footer1}{bg=green1, fg=white}
+\setbeamercolor*{footer2}{bg=green2, fg=white}
+\setbeamercolor*{footer3}{bg=green3, fg=white}
+
+\setbeamertemplate{footline}
+{
+    \hbox{
+      \hspace{-4pt}
+      \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.5ex,dp=1.125ex,center]{footer3}
+        \ifnum \thepage>1 \centering \insertpagenumber\,/\,\insertpresentationendpage \fi
+      \end{beamercolorbox}
+      \hspace{-4pt}
+      \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.5ex,dp=1.125ex,center]{footer2}
+        \ifnum \thepage>1 \centering \usebeamerfont{author in head/foot}\insertshorttitle \fi
+      \end{beamercolorbox}
+      \hspace{-4pt}
+      \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.5ex,dp=1.125ex,center]{footer1}
+        \ifnum \thepage>1 \insertshortauthor \fi
+      \end{beamercolorbox}
+  }
+}
+
+
+% Frame title
+\RequirePackage{tikz}
+\newlength{\marginedPaperWidth}{\paperwidth - 0.2cm}
+\defbeamertemplate*{frametitle}{light}[1][]{
+  \vskip0.25cm
+    \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm]{frametitle} 
+    \begin{tikzpicture}
+    \useasboundingbox(0,0) rectangle(\the\paperwidth,1.2);
+    \fill[color=green3] (0.3,0) rectangle(\the\marginedPaperWidth,1.2);
+    \fill[color=green1] (0.2,0) rectangle(\the\marginedPaperWidth,1.2);
+     \ifx\insertframesubtitle\@empty
+        {\node[anchor=west] at (0.3,0.61){\usebeamerfont{frametitle}\insertframetitle};}
+        \else
+        {\node[anchor= west] at (0.2,0.81){\usebeamerfont{frametitle}\insertframetitle};
+         \node[anchor= west] at (0.4,0.25){\usebeamerfont{framesubtitle}-\insertframesubtitle};}
+        \fi
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+
+\mode<all>
