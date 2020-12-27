@@ -1,0 +1,31 @@
+# vim files
+*.swp
+*.swo
+
+# MacOS files
+*.DS_Store
+
+# Compiled Python files
+*.pyc
+
+# Latex Compilation Files
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+
+# Document Files
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+
+# Image Files
+*.png
+*.jpg
+*.jpeg
+*.tiff
+*.bmp
