@@ -10,11 +10,15 @@
 
 # Latex Compilation Files
 *.aux
+*.bbl
+*.bcf
+*.blg
 *.log
 *.nav
 *.out
 *.snm
 *.toc
+*.xml
 
 # Document Files
 *.pdf
@@ -22,6 +26,7 @@
 *.docx
 *.xls
 *.xlsx
+*.ppt
 
 # Image Files
 *.png
