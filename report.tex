@@ -1,27 +1,36 @@
 \documentclass{article}
 
 % PACKAGES
-\usepackage[margin=0.75in]{geometry}
+\usepackage[margin=0.25in]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{biblatex}
 \usepackage{graphicx}
+\usepackage{multicol}
 \usepackage{subcaption}
 \usepackage{wrapfig}
-\usepackage{multicol}
+
 
 % TITLE
 \title{Quasicrystals}
 \author{Eric Weise}
 \date{}
 
-\bibliography{references/refs}
+
+% REFERENCES
+\addbibresource{report.bib}
+
+
+
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
+    \input{sections/abstract.tex}
 \end{abstract}
+
 
 \begin{multicols}{2}
 
@@ -31,8 +40,8 @@
     \input{sections/phonon.tex}
     \input{sections/applications.tex}
 
-    \bibliographystyle{plain}
-
 \end{multicols}
+
+\printbibliography
 
 \end{document}
