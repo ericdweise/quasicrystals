@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Penrose Inflation</title>
+
+<link rel="stylesheet" href="./main.css"/>
+
+<script type='text/javascript' src='./jquery.min.js'></script>
+<script type='text/javascript' src='./standard.js'></script>
+<script type='text/javascript' src='./penrose.js'></script>
+</head>
+
+
+<body>
+<div id="page">
+
+<div class="header">
+    <h1>Penrose Tiling</h1>
+</div>
+
+<div class="clear">&nbsp;</div>
+	<div id="main">
+    <section id="primary">
+    <div id="content" role="main">
+
+        <!-- Tiling Controls -->
+        <div style="width:220px; float:left;">
+
+            <input type="button" id="deflate" class="tool" value="Deflate"/>
+
+            <hr style="margin-right: 10px;"/>
+
+            <p>Penrose P2 Tilings</p>
+            <input type="button" id="kite" value="Kite"/>
+            <br>
+            <input type="button" id="dart" value="Dart"/>
+
+            <hr style="margin-right: 10px;"/>
+
+            <p>Penrose P3 Tilings</p>
+            <input type="button" id="bigRhomb" value="Thick Rhombus"/>
+            <br>
+            <input type="button" id="lilRhomb" value="Thin Rhombus"/>
+
+            <hr style="margin-right: 10px;"/>
+
+            <input type="button" id="zoomIn" value="Zoom In"/>
+            <br>
+            <input type="button" id="zoomOut" value="Zoom Out"/>
+            <br>
+
+
+        </div>
+
+        <!-- Drawing area -->
+        <canvas id="cnv" width="700" height="600" style="border:2px solid #003535">
+        </canvas>
+
+    </div><!-- #content -->
+    </section><!-- #primary -->
+	</div><!-- #main -->
+
+</div><!-- #page -->
+
+</body>
+</html>
