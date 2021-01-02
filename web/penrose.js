@@ -16,6 +16,12 @@ Point.prototype = {
         return this
     },
 
+    minus: function(p2) {
+        this.x -= p2.x;
+        this.y -= p2.y;
+        return this
+    },
+
     times: function(scalar) {
         this.x *= scalar;
         this.y *= scalar;
@@ -283,19 +289,35 @@ Main = {
         this.addTile(new Tile("lilRhomb", 0, startPt, Math.PI*72/180));
     },
 
-    zoomIn: function() {
+    scale: function(factor) {
         var a = new Point(this.canvas.width/2,this.canvas.height/2);
-        drawOffset.sub(a).multiply(1.25).add(a);
-        drawScale *= 1.25;
+
+        for(idx in tiling.tiles) {
+            tile = tiling.tiles[idx];
+            for(var j=0; j<4; j++) {
+                tile.corners[j].minus(a);
+                tile.corners[j].times(factor);
+                tile.corners[j].plus(a);
+            }
+        }
+
+        // Scale sidelengths
+        for(var i=1; i<4; i++) {
+            kiteProps.sidelens[i] *= factor;
+            dartProps.sidelens[i] *= factor;
+            bigRhombProps.sidelens[i] *= factor;
+            lilRhombProps.sidelens[i] *= factor;
+        }
+
         this.render()
     },
 
+    zoomIn: function() {
+        this.scale(1.25);
+    },
+
     zoomOut: function() {
-        var a = new Point(this.canvas.width/2,
-            this.canvas.height/2);
-        drawOffset.sub(a).multiply(0.8).add(a);
-        drawScale *= 0.8;
-        this.render()
+        this.scale(0.8);
     },
 
     deflate: function() {
