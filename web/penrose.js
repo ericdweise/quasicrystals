@@ -111,8 +111,7 @@ TileProps = {
 TileProps.reset()
 
 
-// function Tile(type, startCornerIdx, startCornerPoint, theta) = {
-function Tile(type, startIdx, offset, theta) {
+Tile = function(type, startIdx, offset, theta) {
     this.corners =  Array(4); // Coordinates of the corners
     this.matching = Array(4); // Two tiles' sides match if these sum to zero
     this.type = type;
@@ -126,7 +125,7 @@ function Tile(type, startIdx, offset, theta) {
         case"dart":
             var props = TileProps.dart;
             break;
-        case "bigRhomb":TileP
+        case "bigRhomb":
             var props = TileProps.bigRhomb;
             break;
         case"lilRhomb":
@@ -155,6 +154,25 @@ function Tile(type, startIdx, offset, theta) {
     }
 };
 
+Tile.prototype = {
+    constructor: Tile,
+
+    isEqual: function(tile2) {
+        if( tile2.type != this.type) {
+            return 0;
+        }
+        for( var i=0; i<4; i++) {
+            if( Math.abs(tile2.corners[i].x - this.corners[i].x) > 5) {
+                return  0;
+            }
+            if( Math.abs(tile2.corners[i].y - this.corners[i].y) > 5) {
+                return  0;
+            }
+        }
+        return 1;
+    }
+}
+
 
 // Collection of tiles
 tiling = {
@@ -167,7 +185,10 @@ tiling = {
     },
 
     add: function(tile) {
-        // TODO: check if tile is already in set
+        // for(j in tiling.tiles) {
+        //     if( tile.isEqual(tiling.tiles[j]) );
+        //     return;
+        // }
         this.tiles.push(tile);
     }
 };
@@ -319,7 +340,7 @@ Main = {
         }
 
         // Scale sidelengths
-        for(var i=1; i<4; i++) {
+        for(var i=0; i<4; i++) {
             TileProps.kite.sidelens[i] *= factor;
             TileProps.dart.sidelens[i] *= factor;
             TileProps.bigRhomb.sidelens[i] *= factor;
@@ -414,10 +435,10 @@ Main = {
     render: function() {
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         // fill in tiles
-        for(var b in tiling.tiles) {
-            console.log("Rendering tile " + b)
+        for(var b=0; b<tiling.tiles.length; b++) {
             this.drawTile(tiling.tiles[b])
         }
+        console.log("Rendered " + b + " tiles");
         // draw vectors
         for(var a in tiling.vectors) {
             v = tiling.vectors[a]
