@@ -365,6 +365,12 @@ Main = {
                         - 36*Math.PI/180));
                     break;
                 case"dart":
+                    tiling.add(new Tile("kite", 2, tile.corners[0],
+                        getAngle(tile.corners[0], tile.corners[1])));
+                    tiling.add(new Tile("dart", 3, tile.corners[2], 
+                        getAngle(tile.corners[2], tile.corners[3])));
+                    tiling.add(new Tile("dart", 0, tile.corners[1], 
+                        getAngle(tile.corners[1], tile.corners[2])));
                     break;
                 case"lilRhomb":
                     break;
