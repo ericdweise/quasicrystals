@@ -68,6 +68,12 @@ function properAngle(theta) {
     return theta
 }
 
+function getAngle(p1, p2) { 
+    // Get the angle of the line between two points
+    // returns radians
+    return Math.atan2(p2.y-p1.y, p2.x-p1.x)
+}
+
 
 // GLOBALS
 PHI = (1 + Math.sqrt(5))/2;
@@ -155,6 +161,7 @@ tiling = {
     },
 
     add: function(tile) {
+        // TODO: check if tile is already in set
         this.tiles.push(tile);
     }
 };
@@ -321,7 +328,41 @@ Main = {
     },
 
     deflate: function() {
-        return;
+        var old_tiles = tiling.tiles;
+        tiling.clear();
+
+        for(var i=0; i<4; i++) {
+            bigRhombProps.sidelens[i] /= PHI;
+            lilRhombProps.sidelens[i] /= PHI;
+            kiteProps.sidelens[i] /= PHI;
+            dartProps.sidelens[i] /= PHI;
+        }
+
+        for(i in old_tiles) {
+            var tile = old_tiles[i];
+            
+            switch(tile.type) {
+                case"kite":
+                    tiling.add(new Tile("kite", 2, tile.corners[3], 
+                        getAngle(tile.corners[3], tile.corners[0])));
+                    tiling.add(new Tile("kite", 1, tile.corners[0], 
+                        getAngle(tile.corners[0], tile.corners[1])));
+                    tiling.add(new Tile("dart", 0, tile.corners[2], 
+                        getAngle(tile.corners[2], tile.corners[3])
+                        - 36*Math.PI/180));
+                    tiling.add(new Tile("dart", 0, tile.corners[2], 
+                        getAngle(tile.corners[2], tile.corners[1]) 
+                        - 36*Math.PI/180));
+                    break;
+                case"dart":
+                    break;
+                case"lilRhomb":
+                    break;
+                case"bigRhomb":
+                    break;
+            }
+        }
+        this.render();
     },
 
     // HELPER FUNCTIONS
