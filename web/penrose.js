@@ -79,30 +79,36 @@ function getAngle(p1, p2) {
 PHI = (1 + Math.sqrt(5))/2;
 
 // Tile properties
-bigRhombProps = {
-    color: "#b0e0e6",
-    matching: [2, 1, -1, -2],
-    angles: [72, 108, 72,108],
-    sidelens: [100, 100, 100, 100]
-};
-lilRhombProps = {
-    color: "#006565",
-    matching: [1, -1, 2, -2],
-    angles: [36, 144, 36, 144],
-    sidelens: [100, 100, 100, 100]
-};
-kiteProps = {
-    color: "#b0e0e6",
-    matching: [-1, 1, 2, -2],
-    angles: [144, 72, 72, 72],
-    sidelens: [100, 100*PHI, 100*PHI, 100]  // TODO: sidelengths....
-};
-dartProps = {
-    color: "#006565",
-    matching: [2, -2, 1, -1],
-    angles: [72, 36, 216, 36],
-    sidelens: [100*PHI, 100, 100, 100*PHI]  // TODO: sidelengths....
-};
+TileProps = {
+    reset: function() {
+        this.bigRhomb = {
+            color: "#b0e0e6",
+            matching: [2, 1, -1, -2],
+            angles: [72, 108, 72,108],
+            sidelens: [100, 100, 100, 100]
+        };
+        this.lilRhomb = {
+            color: "#006565",
+            matching: [1, -1, 2, -2],
+            angles: [36, 144, 36, 144],
+            sidelens: [100, 100, 100, 100]
+        },
+        this.kite = {
+            color: "#b0e0e6",
+            matching: [-1, 1, 2, -2],
+            angles: [144, 72, 72, 72],
+            sidelens: [100, 100*PHI, 100*PHI, 100]
+        },
+        this.dart = {
+            color: "#006565",
+            matching: [2, -2, 1, -1],
+            angles: [72, 36, 216, 36],
+            sidelens: [100*PHI, 100, 100, 100*PHI]
+        }
+    }
+},
+
+TileProps.reset()
 
 
 // function Tile(type, startCornerIdx, startCornerPoint, theta) = {
@@ -115,16 +121,16 @@ function Tile(type, startIdx, offset, theta) {
 
     switch(type) {
         case"kite":
-            var props = kiteProps;
+            var props = TileProps.kite;
             break;
         case"dart":
-            var props = dartProps;
+            var props = TileProps.dart;
             break;
-        case "bigRhomb":
-            var props = bigRhombProps;
+        case "bigRhomb":TileP
+            var props = TileProps.bigRhomb;
             break;
         case"lilRhomb":
-            var props = lilRhombProps;
+            var props = TileProps.lilRhomb;
             break;
     };
 
@@ -274,24 +280,28 @@ Main = {
 
     startKite: function() {
         tiling.clear();
+        TileProps.reset();
         startPt = new Point(this.canvas.width/2, this.canvas.height/2);
         this.addTile(new Tile("kite", 0, startPt, Math.PI*18/180));
     },
 
     startDart: function() {
         tiling.clear();
+        TileProps.reset();
         startPt = new Point(this.canvas.width/2, this.canvas.height/2);
         this.addTile(new Tile("dart", 0, startPt, Math.PI*54/180));
     },
 
     startBigRhomb: function() {
         tiling.clear();
+        TileProps.reset();
         startPt = new Point(this.canvas.width/2, this.canvas.height/2);
         this.addTile(new Tile("bigRhomb", 0, startPt, Math.PI*54/180));
     },
 
     startLilRhomb: function() {
         tiling.clear();
+        TileProps.reset();
         startPt = new Point(this.canvas.width/2, this.canvas.height/2);
         this.addTile(new Tile("lilRhomb", 0, startPt, Math.PI*72/180));
     },
@@ -310,10 +320,10 @@ Main = {
 
         // Scale sidelengths
         for(var i=1; i<4; i++) {
-            kiteProps.sidelens[i] *= factor;
-            dartProps.sidelens[i] *= factor;
-            bigRhombProps.sidelens[i] *= factor;
-            lilRhombProps.sidelens[i] *= factor;
+            TileProps.kite.sidelens[i] *= factor;
+            TileProps.dart.sidelens[i] *= factor;
+            TileProps.bigRhomb.sidelens[i] *= factor;
+            TileProps.lilRhomb.sidelens[i] *= factor;
         }
 
         this.render()
@@ -332,10 +342,10 @@ Main = {
         tiling.clear();
 
         for(var i=0; i<4; i++) {
-            bigRhombProps.sidelens[i] /= PHI;
-            lilRhombProps.sidelens[i] /= PHI;
-            kiteProps.sidelens[i] /= PHI;
-            dartProps.sidelens[i] /= PHI;
+            TileProps.bigRhomb.sidelens[i] /= PHI;
+            TileProps.lilRhomb.sidelens[i] /= PHI;
+            TileProps.kite.sidelens[i] /= PHI;
+            TileProps.dart.sidelens[i] /= PHI;
         }
 
         for(i in old_tiles) {
