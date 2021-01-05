@@ -74,6 +74,10 @@ function getAngle(p1, p2) {
     return Math.atan2(p2.y-p1.y, p2.x-p1.x)
 }
 
+function midpoint(pt1, pt2) {
+    return new Point((pt1.x + pt2.x)/2, (pt1.y + pt2.y)/2)
+}
+
 
 // GLOBALS
 PHI = (1 + Math.sqrt(5))/2;
@@ -85,25 +89,25 @@ TileProps = {
             color: "#b0e0e6",
             matching: [2, 1, -1, -2],
             angles: [72, 108, 72,108],
-            sidelens: [100, 100, 100, 100]
+            sidelens: [200, 200, 200, 200]
         };
         this.lilRhomb = {
             color: "#006565",
             matching: [1, -1, 2, -2],
             angles: [36, 144, 36, 144],
-            sidelens: [100, 100, 100, 100]
+            sidelens: [200, 200, 200, 200]
         },
         this.kite = {
             color: "#b0e0e6",
             matching: [-1, 1, 2, -2],
             angles: [144, 72, 72, 72],
-            sidelens: [100, 100*PHI, 100*PHI, 100]
+            sidelens: [200, 200*PHI, 200*PHI, 200]
         },
         this.dart = {
             color: "#006565",
             matching: [2, -2, 1, -1],
             angles: [72, 36, 216, 36],
-            sidelens: [100*PHI, 100, 100, 100*PHI]
+            sidelens: [200*PHI, 200, 200, 200*PHI]
         }
     }
 },
@@ -302,28 +306,28 @@ Main = {
     startKite: function() {
         tiling.clear();
         TileProps.reset();
-        startPt = new Point(this.canvas.width/2, this.canvas.height/2);
+        startPt = new Point(this.canvas.width/2, this.canvas.height/4);
         this.addTile(new Tile("kite", 0, startPt, Math.PI*18/180));
     },
 
     startDart: function() {
         tiling.clear();
         TileProps.reset();
-        startPt = new Point(this.canvas.width/2, this.canvas.height/2);
+        startPt = new Point(this.canvas.width/2, this.canvas.height/4);
         this.addTile(new Tile("dart", 0, startPt, Math.PI*54/180));
     },
 
     startBigRhomb: function() {
         tiling.clear();
         TileProps.reset();
-        startPt = new Point(this.canvas.width/2, this.canvas.height/2);
+        startPt = new Point(this.canvas.width/2, this.canvas.height/4);
         this.addTile(new Tile("bigRhomb", 0, startPt, Math.PI*54/180));
     },
 
     startLilRhomb: function() {
         tiling.clear();
         TileProps.reset();
-        startPt = new Point(this.canvas.width/2, this.canvas.height/2);
+        startPt = new Point(this.canvas.width/2, this.canvas.height/4);
         this.addTile(new Tile("lilRhomb", 0, startPt, Math.PI*72/180));
     },
 
@@ -394,8 +398,31 @@ Main = {
                         getAngle(tile.corners[1], tile.corners[2])));
                     break;
                 case"lilRhomb":
+                    var lrTile = new Tile("lilRhomb", 0, tile.corners[1],
+                        getAngle(tile.corners[1], tile.corners[3]));
+                    tiling.add(lrTile);
+                    tiling.add(new Tile("bigRhomb", 0, tile.corners[1],
+                        getAngle(tile.corners[1], lrTile.corners[3])));
+
+                    var lrTile = new Tile("lilRhomb", 1, tile.corners[3],
+                        getAngle(tile.corners[3], tile.corners[1]));
+                    tiling.add(lrTile);
+                    tiling.add(new Tile("bigRhomb", 3, lrTile.corners[3],
+                        getAngle(lrTile.corners[3], tile.corners[1])));
                     break;
                 case"bigRhomb":
+                    var intTile = new Tile("lilRhomb", 1, tile.corners[3],
+                        getAngle(tile.corners[2], tile.corners[3]));
+                    tiling.add(intTile);
+                    tiling.add(new Tile("bigRhomb", 3, intTile.corners[0],
+                        getAngle(intTile.corners[0], tile.corners[2])));
+                    tiling.add(new Tile("bigRhomb", 0, tile.corners[2],
+                        getAngle(tile.corners[2], intTile.corners[0])));
+                    tiling.add(new Tile("lilRhomb", 1, tile.corners[1],
+                        getAngle(tile.corners[1], intTile.corners[0])));
+                    tiling.add(new Tile("bigRhomb", 0, intTile.corners[0],
+                        getAngle(intTile.corners[0], intTile.corners[3])));
+
                     break;
             }
         }
